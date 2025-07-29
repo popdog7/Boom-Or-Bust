@@ -46,4 +46,9 @@ public class JobSite : MonoBehaviour
 
         employees.Clear();
     }
+
+    public string getJobsiteName()
+    {
+        return job_stats.jobsite_name;
+    }
 }
