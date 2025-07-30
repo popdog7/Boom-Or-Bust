@@ -51,4 +51,9 @@ public class JobSite : MonoBehaviour
     {
         return job_stats.jobsite_name;
     }
+
+    public JobSiteStatsSO getJobStats()
+    {
+        return job_stats;
+    }
 }

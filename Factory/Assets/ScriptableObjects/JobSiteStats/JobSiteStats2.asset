@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: JobSiteStats2
   m_EditorClassIdentifier: 
   jobsite_name: mine
+  type: 1
+  itemCost: {fileID: 11400000, guid: a7097d8bb7f976d4098500729f8040e6, type: 2}
   amount_produced: 1
   max_workers: 1
-  time_to_produce: 1
+  time_to_produce: 3

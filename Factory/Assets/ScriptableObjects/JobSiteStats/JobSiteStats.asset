@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4183da282156f5d4dbf409eeed61863a, type: 3}
   m_Name: JobSiteStats
   m_EditorClassIdentifier: 
-  jobsite_name: lumberyard
+  jobsite_name: Wharf
+  type: 0
+  itemCost: {fileID: 11400000, guid: d200f7244aee0984b84eb8d364656e21, type: 2}
   amount_produced: 1
   max_workers: 2
   time_to_produce: 1

@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3216806f66f47e4885ec6eb328501b3, type: 3}
-  m_Name: WorkerStats
+  m_Script: {fileID: 11500000, guid: 4183da282156f5d4dbf409eeed61863a, type: 3}
+  m_Name: _JobSite3
   m_EditorClassIdentifier: 
-  resource_bonuses:
-  - type: 0
-    bonus_amount: 1
-  - type: 1
-    bonus_amount: 1
-  - type: 2
-    bonus_amount: 1
+  jobsite_name: SMorf
+  type: 2
+  itemCost: {fileID: 11400000, guid: 657126ad31290bf4787377ca73532742, type: 2}
+  amount_produced: 1
+  max_workers: 1
+  time_to_produce: 7
