@@ -1,4 +1,5 @@
 using Mono.Cecil;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static ItemCostSO;
@@ -6,6 +7,8 @@ using static ItemCostSO;
 public class ResourceBank : MonoBehaviour
 {
     private ResourceData data;
+
+    public event Action<WorkerBonusTypes, int> updateResourceUI;
 
     public void addResource(WorkerBonusTypes type, int amount, ItemCostSO cost)
     {
@@ -45,6 +48,7 @@ public class ResourceBank : MonoBehaviour
         {
             data.resourceStorage[type] = amount;
         }
+        updateResourceUI?.Invoke(type, data.resourceStorage[type]);
         Debug.Log(type + " : " + current_amount + " + " + amount);
     }
 
@@ -53,6 +57,7 @@ public class ResourceBank : MonoBehaviour
     {
         Debug.Log("Before Removal: " + data.resourceStorage[type]);
         data.resourceStorage[type] -= amount;
+        updateResourceUI?.Invoke(type, data.resourceStorage[type]);
         Debug.Log("Removed " + amount + " " + type);
         Debug.Log("After Removal: " + data.resourceStorage[type]);
     }

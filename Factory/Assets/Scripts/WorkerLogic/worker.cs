@@ -10,12 +10,13 @@ public class Worker : MonoBehaviour
     public event Action<WorkerBonusTypes, int, ItemCostSO> onCreateProduct;
     public JobSite job { get; private set; }
 
+    Dictionary<WorkerBonusTypes, float> bonus_lookup;
     private float task_timer;
     private Coroutine produce_coroutine;
 
     void Start()
     {
-        Dictionary<WorkerBonusTypes, float> bonus_lookup = new Dictionary<WorkerBonusTypes, float>(worker_stats.GetAllBonuses());
+        bonus_lookup = new Dictionary<WorkerBonusTypes, float>(worker_stats.GetAllBonuses());
 
         /*
         foreach (var bonus in bonus_lookup)
