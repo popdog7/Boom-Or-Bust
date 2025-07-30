@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3216806f66f47e4885ec6eb328501b3, type: 3}
-  m_Name: WorkerStats
+  m_Script: {fileID: 11500000, guid: 080fb6f68bc98ed4e9b350a455426259, type: 3}
+  m_Name: NoCost
   m_EditorClassIdentifier: 
-  resource_bonuses:
-  - type: 0
-    bonus_amount: 1
-  - type: 1
-    bonus_amount: 1
-  - type: 2
-    bonus_amount: 1
+  ItemCost: []
