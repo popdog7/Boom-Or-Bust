@@ -6,6 +6,8 @@ using static ItemCostSO;
 
 public class ResourceBank : MonoBehaviour
 {
+    [SerializeField] bool debug_messages = false;
+
     private ResourceData data;
 
     public event Action<WorkerBonusTypes, int> updateResourceUI;
@@ -49,17 +51,19 @@ public class ResourceBank : MonoBehaviour
             data.resourceStorage[type] = amount;
         }
         updateResourceUI?.Invoke(type, data.resourceStorage[type]);
-        Debug.Log(type + " : " + current_amount + " + " + amount);
+
+        additonMessage(type, current_amount, amount);
     }
 
     //not to self this might result in a bug if it happens to soon with another one where it becomes negative
     private void removeFromStorage(WorkerBonusTypes type, int amount)
     {
-        Debug.Log("Before Removal: " + data.resourceStorage[type]);
+        beforeRemovalMessage(amount);
+
         data.resourceStorage[type] -= amount;
         updateResourceUI?.Invoke(type, data.resourceStorage[type]);
-        Debug.Log("Removed " + amount + " " + type);
-        Debug.Log("After Removal: " + data.resourceStorage[type]);
+
+        afterRemovalMessage(type, amount);
     }
 
     private bool checkCost(List<ResourceCost> item_cost)
@@ -72,4 +76,29 @@ public class ResourceBank : MonoBehaviour
     {
         this.data = data;
     }
+
+    #region debug messages
+
+    public void beforeRemovalMessage(int amount)
+    {
+        if(debug_messages)
+            Debug.Log("Before Removal: " + amount);
+    }
+
+    public void afterRemovalMessage(WorkerBonusTypes type, int amount)
+    {
+        if (debug_messages)
+        {
+            Debug.Log("Removed " + amount + " " + type);
+            Debug.Log("After Removal: " + amount);
+        }
+    }
+
+    public void additonMessage(WorkerBonusTypes type, int current_amount, int amount)
+    {
+        if (debug_messages)
+            Debug.Log(type + " : " + current_amount + " + " + amount);
+    }
+
+    #endregion
 }

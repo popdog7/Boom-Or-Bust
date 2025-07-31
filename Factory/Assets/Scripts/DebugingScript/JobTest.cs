@@ -12,6 +12,7 @@ public class JobTest : MonoBehaviour
 
     [SerializeField] private bool assignment_debug = false;
     [SerializeField] private bool production_debug = false;
+    [SerializeField] private bool connection_debug = false;
 
     void Start()
     {
@@ -22,6 +23,10 @@ public class JobTest : MonoBehaviour
         if (production_debug)
         {
             productionTest();
+        }
+        if (connection_debug)
+        {
+            connectionTest();
         }
     }
 
@@ -96,6 +101,13 @@ public class JobTest : MonoBehaviour
         sites[1].hireWorker(workers[1]);
         resourceManager.connectWorker(workers[2]);
         sites[2].hireWorker(workers[2]);
+    }
+
+    private void connectionTest()
+    {
+        resourceManager.connectWorker(workers[0]);
+        resourceManager.connectWorker(workers[1]);
+        resourceManager.connectWorker(workers[2]);
     }
 }
 

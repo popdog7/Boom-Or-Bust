@@ -9,7 +9,10 @@ public class JobSite : MonoBehaviour
 
     public void hireWorker(Worker potential_employee)
     {
-        if(employees.Count < job_stats.max_workers)
+        if (employees.Contains(potential_employee))
+            return;
+
+        if (employees.Count < job_stats.max_workers)
         {
             //if the workers has a job it needs to unassign itself from that job
             //assign this job to it
@@ -25,9 +28,11 @@ public class JobSite : MonoBehaviour
             employees.Add(potential_employee);
             potential_employee.trainEmployee();
         }
-
-        //if not we send the worker back to the position of their workstation
-        potential_employee.returnToJobsite();
+        else
+        {
+            //if not we send the worker back to the position of their workstation
+            potential_employee.returnToJobsite();
+        }
     }
 
     public void fireWorker(Worker employee)

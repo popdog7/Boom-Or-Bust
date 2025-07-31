@@ -3,9 +3,10 @@ using UnityEngine;
 public class DragAndDrop : MonoBehaviour
 {
     [SerializeField] private GameInputController input_controller;
+    [SerializeField] private LayerMask layer;
 
     private GameObject selected_object;
-    private float y_offset;
+    [SerializeField] private float y_offset = 5f;
 
     private void Awake()
     {
@@ -57,12 +58,11 @@ public class DragAndDrop : MonoBehaviour
         {
             if (!hit.collider.CompareTag("Dragable"))
             {
-                Debug.Log(hit.collider.tag);
+                //Debug.Log(hit.collider.tag);
                 return;
             }
 
             selected_object = hit.collider.gameObject;
-            y_offset = selected_object.transform.position.y;
             //Cursor.visible = false;
         }
     }
@@ -75,10 +75,28 @@ public class DragAndDrop : MonoBehaviour
         }
         else
         {
+            checkBelow();
             updateSelectedObjectPosition(0);
 
             selected_object = null;
             //Cursor.visible = true;
         }
+    }
+
+    private void checkBelow()
+    {
+        Vector3 ray_pos = selected_object.transform.position + Vector3.up * 0.1f;
+
+        Ray ray = new Ray(ray_pos, Vector3.down);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 10f, layer))
+        {
+            JobSite job = hit.collider.GetComponent<JobSite>();
+            Worker selected_worker = selected_object.GetComponent<Worker>();
+
+            job.hireWorker(selected_worker);
+        }
+
+        Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 1f);
     }
 }

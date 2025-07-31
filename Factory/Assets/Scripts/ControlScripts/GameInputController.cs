@@ -32,7 +32,6 @@ public class GameInputController : MonoBehaviour
 
     public Vector2 getMousePosition()
     {
-        Debug.Log(player_input.Player.PointerPosition.ReadValue<Vector2>());
         return player_input.Player.PointerPosition.ReadValue<Vector2>();
     }
 }
