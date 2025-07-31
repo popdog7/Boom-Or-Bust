@@ -1166,6 +1166,7 @@ MonoBehaviour:
   - {fileID: 524294465}
   assignment_debug: 0
   production_debug: 0
+  connection_debug: 1
 --- !u!4 &854032967
 Transform:
   m_ObjectHideFlags: 0
@@ -1194,7 +1195,7 @@ GameObject:
   - component: {fileID: 870204510}
   - component: {fileID: 870204509}
   - component: {fileID: 870204508}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: job (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1297,7 +1298,7 @@ Transform:
   m_GameObject: {fileID: 870204507}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.28666, y: 1.90682, z: 5.79}
+  m_LocalPosition: {x: 4.8, y: 0.6, z: 5.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1347,7 +1348,7 @@ GameObject:
   - component: {fileID: 1252366726}
   - component: {fileID: 1252366725}
   - component: {fileID: 1252366724}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: job
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1450,7 +1451,7 @@ Transform:
   m_GameObject: {fileID: 1252366723}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.28666, y: 1.90682, z: 5.79}
+  m_LocalPosition: {x: -5.37, y: 0.6, z: 5.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1701,6 +1702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df8dd4ad25cf774a95f6a12f1721944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug_messages: 0
 --- !u!4 &1402946325
 Transform:
   m_ObjectHideFlags: 0
@@ -1746,6 +1748,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input_controller: {fileID: 1584436351}
+  layer:
+    serializedVersion: 2
+    m_Bits: 64
+  y_offset: 2
 --- !u!4 &1568735678
 Transform:
   m_ObjectHideFlags: 0
@@ -1818,7 +1824,7 @@ GameObject:
   - component: {fileID: 1947463499}
   - component: {fileID: 1947463498}
   - component: {fileID: 1947463497}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: job (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1921,7 +1927,7 @@ Transform:
   m_GameObject: {fileID: 1947463496}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.27, y: 1.90682, z: 5.79}
+  m_LocalPosition: {x: 0.13, y: 0.6, z: 5.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2177,8 +2183,8 @@ SceneRoots:
   - {fileID: 1584436352}
   - {fileID: 1568735678}
   - {fileID: 1252366728}
-  - {fileID: 870204512}
   - {fileID: 1947463501}
+  - {fileID: 870204512}
   - {fileID: 854032967}
   - {fileID: 1359572695}
   - {fileID: 1402946325}
