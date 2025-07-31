@@ -12,6 +12,12 @@ public class WorkerStats : ScriptableObject
         public float bonus_amount = 1f;
     }
 
+    public string worker_name;
+    public Sprite worker_img;
+    public List<WorkerBonusTypes> worker_specialization;
+    public int worker_cost;
+
+
     public List<ResourceBonus> resource_bonuses = new List<ResourceBonus>();
 
     private Dictionary<WorkerBonusTypes, float> bonus_lookup;

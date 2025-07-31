@@ -11,6 +11,16 @@ public class ResourceBank : MonoBehaviour
     private ResourceData data;
 
     public event Action<WorkerBonusTypes, int> updateResourceUI;
+    public event Action<workerPurchaseUI, bool> signalPurchaseOutcome;
+    public event Action<bool> signalRerollOutcome;
+    public event Action<int> updateMoneyUI;
+
+    public void importResourceData(ResourceData data)
+    {
+        this.data = data;
+    }
+
+    #region Resource Type Management
 
     public void addResource(WorkerBonusTypes type, int amount, ItemCostSO cost)
     {
@@ -72,10 +82,39 @@ public class ResourceBank : MonoBehaviour
         return item_cost.TrueForAll(resource => data.resourceStorage.TryGetValue(resource.type, out int resource_amount) && resource.cost <= resource_amount);
     }
 
-    public void importResourceData(ResourceData data)
+    #endregion
+
+    #region Money Management
+
+    public void attemptPurchase(workerPurchaseUI ui, int amount)
     {
-        this.data = data;
+        if(data.money >= amount)
+        {
+            updateMoney(-amount);
+            signalPurchaseOutcome?.Invoke(ui, true);
+        }
+
+        signalPurchaseOutcome?.Invoke(ui, false);
     }
+
+    public void attemptReroll(int amount)
+    {
+        if (data.money >= amount)
+        {
+            updateMoney(-amount);
+            signalRerollOutcome?.Invoke(true);
+        }
+
+        signalRerollOutcome?.Invoke(false);
+    }
+
+    private void updateMoney(int amount)
+    {
+        data.money += amount;
+        updateMoneyUI?.Invoke(data.money);
+    }
+
+    #endregion
 
     #region debug messages
 
