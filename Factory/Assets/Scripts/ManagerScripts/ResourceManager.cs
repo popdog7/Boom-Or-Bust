@@ -10,12 +10,20 @@ public class ResourceManager : MonoBehaviour
     [SerializeField] private WorkerPurchaseController purchase_controller;
     [SerializeField] private ResearchPurchaseController research_controller;
     [SerializeField] private ShadyPurchaseController shady_controller;
+    [SerializeField] private SellMenuController sell_controller;
+    [SerializeField] private UIStateController ui_state_controller;
+
+    [Header("Timers")]
+    [SerializeField] private FactoryTimer factory_timer;
 
     [Header("Bank")]
     [SerializeField] private ResourceBank bank;
 
     [Header("Spawner")]
     [SerializeField] private WorkerSpawner worker_spawner;
+
+    [Header("Game State Manager")]
+    [SerializeField] private GameStateManager state_manager;
 
     private ResourceData data;
 
@@ -24,11 +32,14 @@ public class ResourceManager : MonoBehaviour
         data = new();
         bank.importResourceData(data);
         connectUI();
+        connectStates();
     }
 
     public void connectWorker(Worker employee)
     {
         employee.onCreateProduct += bank.addResource;
+        state_manager.signalWorkerPause += employee.pauseProdcution;
+        state_manager.signalWorkerUnpause += employee.unpauseProdcution;
     }
 
     public void connectUI()
@@ -45,7 +56,17 @@ public class ResourceManager : MonoBehaviour
         research_controller.onResearchUnlockAttempt += bank.attemptUnlockResearch;
         bank.signalResearchOutcome += research_controller.researchUnlockOutcome;
         shady_controller.onAcceptedShadyDeal += bank.acceptShadyDeal;
+        sell_controller.onSellCall += bank.sellResources;
+        bank.updateSellScreen += sell_controller.displaySelloff;
 
+    }
+
+    public void connectStates()
+    {
+        factory_timer.onTimerFinished += state_manager.onSellState;
+        state_manager.signalSellMenuDisplay += sell_controller.initializeSellOff;
+        state_manager.signalTimerReset += factory_timer.restartPhase;
+        state_manager.signalUIChange += ui_state_controller.changeUIGroup;
     }
 
 

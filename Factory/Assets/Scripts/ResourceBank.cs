@@ -16,6 +16,7 @@ public class ResourceBank : MonoBehaviour
     public event Action<bool> signalResearchOutcome;
     public event Action<int> updateMoneyUI;
     public event Action<int> updateDebtUI;
+    public event Action<WorkerBonusTypes, int, int> updateSellScreen;
 
     public void importResourceData(ResourceData data)
     {
@@ -131,6 +132,22 @@ public class ResourceBank : MonoBehaviour
     {
         updateDebt(debt);
         updateMoney(money);
+    }
+
+    public void sellResources(List<SellMenuController.SellableResources> sellables)
+    {
+        int resource_amount = 0;
+        int money_made = 0;
+
+        foreach (var resource in sellables)
+        {
+            resource_amount = data.resourceStorage[resource.type];
+            money_made = resource_amount * resource.sell_amount;
+
+            removeFromStorage(resource.type, resource_amount);
+            updateMoney(money_made);
+            updateSellScreen?.Invoke(resource.type, resource_amount, money_made);
+        }
     }
 
     private void updateMoney(int amount)
