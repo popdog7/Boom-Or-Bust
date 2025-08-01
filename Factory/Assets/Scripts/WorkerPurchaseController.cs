@@ -20,6 +20,8 @@ public class WorkerPurchaseController : MonoBehaviour
     public event Action<workerPurchaseUI, int> onAttemptWorkerPurchase;
     public event Action<int> onAttemptWorkerReroll;
 
+    public event Action<WorkerStats> onWorkerSuccesfulPurchase;
+
     private void Awake()
     {
         foreach(var ui_element in worker_purchase_ui)
@@ -43,6 +45,7 @@ public class WorkerPurchaseController : MonoBehaviour
         if (outcome)
         {
             ui.markPurchaseSuccess();
+            onWorkerSuccesfulPurchase?.Invoke(ui.getWorkerStats());
         }
         else
         {
@@ -67,6 +70,7 @@ public class WorkerPurchaseController : MonoBehaviour
             foreach (var ui_element in worker_purchase_ui)
             {
                 ui_element.setWorkerUI(chooseWorker());
+                ui_element.setCanPurchase(true);
             }
             cost *= cost_multiplier;
             cost_text.text = "$" + cost;

@@ -14,16 +14,24 @@ public class Worker : MonoBehaviour
     private float task_timer;
     private Coroutine produce_coroutine;
 
+    /*
     void Start()
     {
         bonus_lookup = new Dictionary<WorkerBonusTypes, float>(worker_stats.GetAllBonuses());
 
-        /*
+        
         foreach (var bonus in bonus_lookup)
         {
             Debug.Log(bonus.Key + " " + bonus.Value);
         }
-        */
+        
+    }
+    */
+
+    public void initalize(WorkerStats stats)
+    {
+        worker_stats = stats;
+        bonus_lookup = new Dictionary<WorkerBonusTypes, float>(worker_stats.GetAllBonuses());
     }
 
 

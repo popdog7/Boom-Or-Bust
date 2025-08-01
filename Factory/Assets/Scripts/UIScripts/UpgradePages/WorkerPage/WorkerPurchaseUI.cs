@@ -52,4 +52,14 @@ public class workerPurchaseUI : MonoBehaviour
     {
 
     }
+
+    public WorkerStats getWorkerStats()
+    {
+        return worker_info;
+    }
+    public void setCanPurchase(bool val)
+    {
+        can_purchase = val;
+    }
+
 }
