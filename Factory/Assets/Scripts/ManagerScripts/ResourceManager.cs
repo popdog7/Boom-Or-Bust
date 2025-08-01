@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
 {
-    [SerializeField] private ResourceBank bank;
+    [Header("UI Controllers")]
+    [SerializeField] private MoneyUI money_ui;
     [SerializeField] private ResourceUIController ui_controller;
     [SerializeField] private WorkerPurchaseController purchase_controller;
-    [SerializeField] private MoneyUI money_ui;
+    [SerializeField] private ResearchPurchaseController research_controller;
+
+    [Header("Bank")]
+    [SerializeField] private ResourceBank bank;
+
+    [Header("Spawner")]
     [SerializeField] private WorkerSpawner worker_spawner;
 
     private ResourceData data;
@@ -34,6 +40,8 @@ public class ResourceManager : MonoBehaviour
         purchase_controller.onAttemptWorkerReroll += bank.attemptReroll;
         bank.signalRerollOutcome += purchase_controller.reroll;
         purchase_controller.onWorkerSuccesfulPurchase += worker_spawner.addWorker;
+        research_controller.onResearchUnlockAttempt += bank.attemptUnlockResearch;
+        bank.signalResearchOutcome += research_controller.researchUnlockOutcome;
     }
 
 

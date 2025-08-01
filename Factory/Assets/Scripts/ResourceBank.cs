@@ -13,6 +13,7 @@ public class ResourceBank : MonoBehaviour
     public event Action<WorkerBonusTypes, int> updateResourceUI;
     public event Action<workerPurchaseUI, bool> signalPurchaseOutcome;
     public event Action<bool> signalRerollOutcome;
+    public event Action<bool> signalResearchOutcome;
     public event Action<int> updateMoneyUI;
 
     public void importResourceData(ResourceData data)
@@ -106,6 +107,17 @@ public class ResourceBank : MonoBehaviour
         }
 
         signalRerollOutcome?.Invoke(false);
+    }
+
+    public void attemptUnlockResearch(int amount)
+    {
+        if (data.money >= amount)
+        {
+            updateMoney(-amount);
+            signalResearchOutcome?.Invoke(true);
+        }
+
+        signalResearchOutcome?.Invoke(false);
     }
 
     private void updateMoney(int amount)

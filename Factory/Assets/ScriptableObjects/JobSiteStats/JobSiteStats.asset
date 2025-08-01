@@ -15,6 +15,9 @@ MonoBehaviour:
   jobsite_name: Wharf
   type: 0
   itemCost: {fileID: 11400000, guid: d200f7244aee0984b84eb8d364656e21, type: 2}
+  description: fish at wharf
+  purchase_cost: 500
+  prerequisite: 
   amount_produced: 1
   max_workers: 2
   time_to_produce: 1
