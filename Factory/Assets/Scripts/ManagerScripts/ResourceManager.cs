@@ -9,6 +9,7 @@ public class ResourceManager : MonoBehaviour
     [SerializeField] private ResourceUIController ui_controller;
     [SerializeField] private WorkerPurchaseController purchase_controller;
     [SerializeField] private ResearchPurchaseController research_controller;
+    [SerializeField] private ShadyPurchaseController shady_controller;
 
     [Header("Bank")]
     [SerializeField] private ResourceBank bank;
@@ -37,11 +38,14 @@ public class ResourceManager : MonoBehaviour
         purchase_controller.onAttemptWorkerPurchase += bank.attemptPurchase;
         bank.signalPurchaseOutcome += purchase_controller.determinePurchaseOutcome;
         bank.updateMoneyUI += money_ui.setMoney;
+        bank.updateDebtUI += money_ui.setDebt;
         purchase_controller.onAttemptWorkerReroll += bank.attemptReroll;
         bank.signalRerollOutcome += purchase_controller.reroll;
         purchase_controller.onWorkerSuccesfulPurchase += worker_spawner.addWorker;
         research_controller.onResearchUnlockAttempt += bank.attemptUnlockResearch;
         bank.signalResearchOutcome += research_controller.researchUnlockOutcome;
+        shady_controller.onAcceptedShadyDeal += bank.acceptShadyDeal;
+
     }
 
 

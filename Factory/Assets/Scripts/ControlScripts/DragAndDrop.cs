@@ -4,6 +4,7 @@ public class DragAndDrop : MonoBehaviour
 {
     [SerializeField] private GameInputController input_controller;
     [SerializeField] private LayerMask layer;
+    [SerializeField] private LineRenderer line_renderer;
 
     private GameObject selected_object;
     [SerializeField] private float y_offset = 5f;
@@ -11,6 +12,9 @@ public class DragAndDrop : MonoBehaviour
     private void Awake()
     {
         input_controller.onDragStartAction += onDragStart;
+
+        if (line_renderer != null )
+            line_renderer.enabled = false;
     }
 
     public void Update()
@@ -39,6 +43,7 @@ public class DragAndDrop : MonoBehaviour
         if (selected_object != null)
         {
             updateSelectedObjectPosition(0.25f);
+            displayVisualAid();
         }
     }
 
@@ -77,6 +82,7 @@ public class DragAndDrop : MonoBehaviour
         {
             checkBelow();
             updateSelectedObjectPosition(0);
+            line_renderer.enabled = false;
 
             selected_object = null;
             //Cursor.visible = true;
@@ -98,5 +104,22 @@ public class DragAndDrop : MonoBehaviour
         }
 
         Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 1f);
+    }
+
+    private void displayVisualAid()
+    {
+        Vector3 start_pos = selected_object.transform.position;
+        Vector3 end_pos = start_pos + Vector3.down * 5f;
+
+        /*
+        Vector3 ray_pos = start_pos + Vector3.up * 0.1f;
+        Ray ray = new Ray(ray_pos, Vector3.down);
+        Physics.Raycast(ray, out RaycastHit hit, 10f, layer);
+        */
+
+        line_renderer.enabled = true;
+        line_renderer.positionCount = 2;
+        line_renderer.SetPosition(0, start_pos);
+        line_renderer.SetPosition(1, end_pos);
     }
 }

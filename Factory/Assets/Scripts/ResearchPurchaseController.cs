@@ -44,7 +44,17 @@ public class ResearchPurchaseController : MonoBehaviour
             index++;
         }
 
+        setBlank();
         activateUnlockedJobs();
+    }
+
+    private void setBlank()
+    {
+        research_name.text = "";
+        Description.text = "";
+        input_cost.text = "";
+        output_cost.text = "";
+        unlock_cost.text = "Select Icon";
     }
 
     private void elementSelected(ResearchUiElement ui)

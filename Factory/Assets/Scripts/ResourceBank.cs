@@ -15,10 +15,17 @@ public class ResourceBank : MonoBehaviour
     public event Action<bool> signalRerollOutcome;
     public event Action<bool> signalResearchOutcome;
     public event Action<int> updateMoneyUI;
+    public event Action<int> updateDebtUI;
 
     public void importResourceData(ResourceData data)
     {
         this.data = data;
+    }
+
+    private void Start()
+    {
+        updateDebtUI?.Invoke(data.debt);
+        updateMoneyUI?.Invoke(data.money);
     }
 
     #region Resource Type Management
@@ -120,10 +127,22 @@ public class ResourceBank : MonoBehaviour
         signalResearchOutcome?.Invoke(false);
     }
 
+    public void acceptShadyDeal(int debt, int money)
+    {
+        updateDebt(debt);
+        updateMoney(money);
+    }
+
     private void updateMoney(int amount)
     {
         data.money += amount;
         updateMoneyUI?.Invoke(data.money);
+    }
+
+    private void updateDebt(int amount)
+    {
+        data.debt += amount;
+        updateDebtUI?.Invoke(data.debt);
     }
 
     #endregion
