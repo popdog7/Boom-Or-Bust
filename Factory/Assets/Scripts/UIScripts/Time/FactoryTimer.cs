@@ -29,13 +29,14 @@ public class FactoryTimer : MonoBehaviour
         if(remaining_time > 0)
         {
             remaining_time -= Time.deltaTime;
+            if (remaining_time <= 0)
+            {
+                remaining_time = 0;
+                timer_done = true;
+                onTimerFinished?.Invoke();
+            }
         }
-        else if(remaining_time < 0)
-        {
-            remaining_time = 0; 
-            timer_done = true;
-            onTimerFinished?.Invoke();
-        }
+        
         int minutes = Mathf.FloorToInt(remaining_time / 60);
         int seconds = Mathf.FloorToInt(remaining_time % 60);
         timer_text.text = string.Format("{0:00}:{1:00}", minutes, seconds);

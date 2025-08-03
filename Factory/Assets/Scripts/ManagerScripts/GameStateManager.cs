@@ -15,29 +15,25 @@ public class GameStateManager : MonoBehaviour
     private GameState state = GameState.factory_phase;
     private GameState previous_state;
     private int current_day = 1;
-    private int max_day = 5;
+    [SerializeField] private int max_day = 5;
     private bool paused = false;
 
-    public event Action signalWorkerPause;
-    public event Action signalWorkerUnpause;
+    public event Action signalFactoryPhaseEntered;
+    public event Action signalSellPhaseEntered;
 
-    public event Action signalSellMenuDisplay;
-
-    public event Action signalTimerReset;
     public event Action<int> signalUIChange;
 
-    public void onFactoryState()
+    private void onFactoryState()
     {
         state = GameState.factory_phase;
-        signalWorkerUnpause?.Invoke();
-        signalTimerReset?.Invoke();
+        signalFactoryPhaseEntered?.Invoke();
         signalUIChange?.Invoke(0);
     }
 
     public void onSellState()
     {
         state = GameState.sell_phase;
-        signalWorkerPause?.Invoke();
+        signalSellPhaseEntered?.Invoke();
         signalUIChange?.Invoke(1);
     }
 
@@ -47,7 +43,7 @@ public class GameStateManager : MonoBehaviour
         signalUIChange?.Invoke(2);
     }
 
-    public void onWinState()
+    private void onWinState()
     {
         state = GameState.win_phase;
     }
@@ -56,6 +52,19 @@ public class GameStateManager : MonoBehaviour
     {
         previous_state = state;
         state = GameState.pause_phase;
+    }
+
+    public void determineIfGameOver()
+    {
+        if (current_day > max_day)
+        {
+            onWinState();
+        }
+        else
+        {
+            current_day++;
+            onFactoryState();
+        }
     }
 
 }

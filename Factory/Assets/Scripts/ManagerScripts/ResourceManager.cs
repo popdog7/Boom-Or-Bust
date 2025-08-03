@@ -25,6 +25,9 @@ public class ResourceManager : MonoBehaviour
     [Header("Game State Manager")]
     [SerializeField] private GameStateManager state_manager;
 
+    [Header("Controls")]
+    [SerializeField] private DragAndDrop drag_and_Drop;
+
     private ResourceData data;
 
     private void Awake()
@@ -38,8 +41,8 @@ public class ResourceManager : MonoBehaviour
     public void connectWorker(Worker employee)
     {
         employee.onCreateProduct += bank.addResource;
-        state_manager.signalWorkerPause += employee.pauseProdcution;
-        state_manager.signalWorkerUnpause += employee.unpauseProdcution;
+        state_manager.signalSellPhaseEntered += employee.pauseProdcution;
+        state_manager.signalFactoryPhaseEntered += employee.unpauseProdcution;
     }
 
     public void connectUI()
@@ -64,8 +67,10 @@ public class ResourceManager : MonoBehaviour
     public void connectStates()
     {
         factory_timer.onTimerFinished += state_manager.onSellState;
-        state_manager.signalSellMenuDisplay += sell_controller.initializeSellOff;
-        state_manager.signalTimerReset += factory_timer.restartPhase;
+        state_manager.signalFactoryPhaseEntered += factory_timer.restartPhase;
+        state_manager.signalFactoryPhaseEntered += worker_spawner.createWorkers;
+        state_manager.signalSellPhaseEntered += sell_controller.initializeSellOff;
+        state_manager.signalSellPhaseEntered += drag_and_Drop.onFactoryPhaseEnd;
         state_manager.signalUIChange += ui_state_controller.changeUIGroup;
     }
 

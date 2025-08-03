@@ -2,10 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Worker : MonoBehaviour
 {
     [SerializeField] private WorkerStats worker_stats;
+    [SerializeField] private Image progress_bar;
+    [SerializeField] private CanvasGroup progress_bar_group;
 
     public event Action<WorkerBonusTypes, int, ItemCostSO> onCreateProduct;
     public JobSite job { get; private set; }
@@ -14,26 +17,11 @@ public class Worker : MonoBehaviour
     private float task_timer;
     private Coroutine produce_coroutine;
 
-    /*
-    void Start()
-    {
-        bonus_lookup = new Dictionary<WorkerBonusTypes, float>(worker_stats.GetAllBonuses());
-
-        
-        foreach (var bonus in bonus_lookup)
-        {
-            Debug.Log(bonus.Key + " " + bonus.Value);
-        }
-        
-    }
-    */
-
     public void initalize(WorkerStats stats)
     {
         worker_stats = stats;
         bonus_lookup = new Dictionary<WorkerBonusTypes, float>(worker_stats.GetAllBonuses());
     }
-
 
     #region Job Setting
     public void unassignJobsite()
@@ -55,13 +43,18 @@ public class Worker : MonoBehaviour
         if (produce_coroutine != null)
         {
             StopCoroutine(produce_coroutine);
+            produce_coroutine = null;
+            progress_bar.fillAmount = 0f;
+            progress_bar_group.alpha = 0;
         }
     }
 
     public void unpauseProdcution()
     {
-        if (produce_coroutine == null)
+        if (produce_coroutine == null && job != null)
         {
+            progress_bar.fillAmount = 0f;
+            progress_bar_group.alpha = 1;
             produce_coroutine = StartCoroutine(ProduceLoop());
         }
     }
@@ -72,8 +65,15 @@ public class Worker : MonoBehaviour
     {
         while (job != null)
         {
+            float elasped_time = 0f;
+
+            while (elasped_time < task_timer)
+            {
+                elasped_time += Time.deltaTime;
+                progress_bar.fillAmount = elasped_time / task_timer;
+                yield return null;
+            }
             onCreateProduct?.Invoke(job.getJobStats().type, job.getJobStats().amount_produced, job.getJobStats().itemCost);
-            yield return new WaitForSeconds(task_timer);
         }
     }
 

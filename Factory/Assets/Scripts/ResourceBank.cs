@@ -141,6 +141,9 @@ public class ResourceBank : MonoBehaviour
 
         foreach (var resource in sellables)
         {
+            if (!data.resourceStorage.ContainsKey(resource.type))
+                continue;
+
             resource_amount = data.resourceStorage[resource.type];
             money_made = resource_amount * resource.sell_amount;
 

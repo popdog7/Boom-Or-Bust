@@ -89,6 +89,20 @@ public class DragAndDrop : MonoBehaviour
         }
     }
 
+    //Come Back when alwawys attached to jobsite so this just returns them to their jobsite
+    public void onFactoryPhaseEnd()
+    {
+        if (selected_object != null)
+        {
+            checkBelow();
+            updateSelectedObjectPosition(0);
+            line_renderer.enabled = false;
+
+            selected_object = null;
+            //Cursor.visible = true;    
+        }
+    }
+
     private void checkBelow()
     {
         Vector3 ray_pos = selected_object.transform.position + Vector3.up * 0.1f;
