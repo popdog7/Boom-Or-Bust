@@ -109,5 +109,10 @@ public class JobTest : MonoBehaviour
         resourceManager.connectWorker(workers[1]);
         resourceManager.connectWorker(workers[2]);
     }
+
+    public void buttonTest()
+    {
+        Debug.Log("I Pressed The button");
+    }
 }
 

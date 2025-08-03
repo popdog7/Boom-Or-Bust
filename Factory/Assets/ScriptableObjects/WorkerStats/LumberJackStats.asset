@@ -10,8 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3216806f66f47e4885ec6eb328501b3, type: 3}
-  m_Name: WorkerStats
+  m_Name: LumberJackStats
   m_EditorClassIdentifier: 
+  worker_name: LumberJack
+  worker_img: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  worker_specialization: 01000000
+  worker_cost: 300
   resource_bonuses:
   - type: 0
     bonus_amount: 1

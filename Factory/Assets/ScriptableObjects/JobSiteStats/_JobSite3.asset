@@ -15,6 +15,9 @@ MonoBehaviour:
   jobsite_name: SMorf
   type: 2
   itemCost: {fileID: 11400000, guid: 657126ad31290bf4787377ca73532742, type: 2}
+  description: NONE
+  purchase_cost: 100
+  prerequisite: 
   amount_produced: 1
   max_workers: 1
   time_to_produce: 7

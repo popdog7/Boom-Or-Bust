@@ -12,5 +12,8 @@ public class ResourceData
 
     private List<resourceAmount> resourceAmounts;
 
+    public int money = 1000;
+    public int debt = 0;
+
     public Dictionary<WorkerBonusTypes, int> resourceStorage = new Dictionary<WorkerBonusTypes, int>();
 }
